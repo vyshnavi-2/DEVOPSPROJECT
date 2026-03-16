@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LexiSense — Sentiment Intelligence</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:wght@300;400;500&family=DM+Sans:wght@300;400;500&display=swap">
+</head>
+<body>
+
+<!-- ═══════════════════════════
+     LOGIN PAGE
+═══════════════════════════ -->
+<div id="loginPage" class="auth-page">
+  <div class="grid-bg"></div>
+  <div class="auth-container">
+
+    <div class="auth-visual">
+      <div class="auth-visual-content">
+        <div class="brand-logo">
+          <div class="brand-icon">🧠</div>
+          <div class="brand-name">Lexi<span>Sense</span></div>
+        </div>
+        <div class="auth-tagline">Understand <em>every word's</em> true meaning</div>
+        <div class="auth-desc">Word-by-word sentiment translation that reveals how language shapes perception.</div>
+      </div>
+    </div>
+
+    <div class="auth-form-side">
+      <div class="form-header">
+        <div class="form-title">Welcome back</div>
+        <div class="form-subtitle">No account? <a onclick="showPage('signup')">Create one →</a></div>
+      </div>
+
+      <div class="input-group">
+        <label>Email</label>
+        <input id="loginEmail" type="email" class="auth-input" placeholder="you@example.com">
+        <div class="error-msg" id="loginEmailErr">Please enter a valid email.</div>
+      </div>
+
+      <div class="input-group">
+        <label>Password</label>
+        <input id="loginPass" type="password" class="auth-input" placeholder="••••••••">
+        <div class="error-msg" id="loginPassErr">Password is required.</div>
+      </div>
+
+      <button class="btn-primary" id="loginBtn" onclick="handleLogin()">
+        <span class="btn-text">Sign In</span>
+        <span class="btn-spinner hidden">⏳</span>
+      </button>
+
+      <div class="auth-error hidden" id="loginError"></div>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════
+     SIGNUP PAGE
+═══════════════════════════ -->
+<div id="signupPage" class="auth-page hidden">
+  <div class="grid-bg"></div>
+  <div class="auth-container">
+
+    <div class="auth-visual">
+      <div class="auth-visual-content">
+        <div class="brand-logo">
+          <div class="brand-icon">🧠</div>
+          <div class="brand-name">Lexi<span>Sense</span></div>
+        </div>
+        <div class="auth-tagline">Start analyzing <em>sentiment</em> today</div>
+        <div class="auth-desc">Join researchers, marketers and developers using LexiSense for precision sentiment intelligence.</div>
+      </div>
+    </div>
+
+    <div class="auth-form-side">
+      <div class="form-header">
+        <div class="form-title">Create Account</div>
+        <div class="form-subtitle">Already have one? <a onclick="showPage('login')">Sign in →</a></div>
+      </div>
+
+      <div class="input-group">
+        <label>Full Name</label>
+        <input id="signupName" type="text" class="auth-input" placeholder="Jane Smith">
+        <div class="error-msg" id="signupNameErr">Name is required.</div>
+      </div>
+
+      <div class="input-group">
+        <label>Email</label>
+        <input id="signupEmail" type="email" class="auth-input" placeholder="you@example.com">
+        <div class="error-msg" id="signupEmailErr">Please enter a valid email.</div>
+      </div>
+
+      <div class="input-group">
+        <label>Password</label>
+        <input id="signupPass" type="password" class="auth-input" placeholder="Min 6 characters">
+        <div class="error-msg" id="signupPassErr">Password must be at least 6 characters.</div>
+      </div>
+
+      <div class="input-group">
+        <label>Confirm Password</label>
+        <input id="signupConfirm" type="password" class="auth-input" placeholder="Repeat password">
+        <div class="error-msg" id="signupConfirmErr">Passwords do not match.</div>
+      </div>
+
+      <button class="btn-primary" id="signupBtn" onclick="handleSignup()">
+        <span class="btn-text">Create Account</span>
+        <span class="btn-spinner hidden">⏳</span>
+      </button>
+
+      <div class="auth-error hidden" id="signupError"></div>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════
+     DASHBOARD
+═══════════════════════════ -->
+<div id="dashboard">
+
+  <div class="sidebar">
+    <div class="sidebar-logo">
+      <div class="brand-icon">🧠</div>
+      <div class="brand-name">Lexi<span>Sense</span></div>
+    </div>
+
+    <div class="nav-item active">📊 Dashboard</div>
+    <div class="nav-item">🔍 Analyzer</div>
+    <div class="nav-item">🌐 Web Scraper</div>
+    <div class="nav-item">📜 History</div>
+
+    <div class="sidebar-footer">
+      <div class="sidebar-user">
+        <div class="user-avatar" id="userAvatar">U</div>
+        <div class="user-info">
+          <div class="user-name"  id="sidebarUserName">User</div>
+          <div class="user-email" id="sidebarUserEmail">—</div>
+        </div>
+      </div>
+      <button class="logout-btn" onclick="handleLogout()">↩ Log out</button>
+    </div>
+  </div>
+
+  <div class="main-content">
+    <h1 class="page-title">Sentiment <span>Intelligence</span></h1>
+    <p class="page-subtitle">Word-by-word translation and sentiment analysis</p>
+
+    <div class="stats-grid">
+      <div class="stat-card positive">
+        <div class="stat-value" id="posCount">0</div>
+        <div class="stat-label">Positive Texts</div>
+      </div>
+      <div class="stat-card negative">
+        <div class="stat-value" id="negCount">0</div>
+        <div class="stat-label">Negative Texts</div>
+      </div>
+      <div class="stat-card neutral">
+        <div class="stat-value" id="neuCount">0</div>
+        <div class="stat-label">Neutral Texts</div>
+      </div>
+    </div>
+
+    <div class="analyzer-card">
+      <h2>Live Text Analyzer</h2>
+      <textarea
+        id="analyzeInput"
+        class="analyzer-input"
+        placeholder="Type or paste any text to analyze sentiment word by word...&#10;Example: This product is amazing but the delivery was unfortunately terrible."
+      ></textarea>
+      <button onclick="runAnalysis()" class="analyze-btn">⚡ Analyze</button>
+      <div id="wordMap"    class="word-map"></div>
+      <div id="scorePanel"></div>
+    </div>
+  </div>
+
+</div>
+
+<div id="toast" class="toast"></div>
+
+<script src="js/ui.js"></script>
+<script src="js/auth.js"></script>
+<script src="js/sentiment.js"></script>
+<script src="js/dashboard.js"></script>
+</body>
+</html>
